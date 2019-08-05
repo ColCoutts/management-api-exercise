@@ -72,12 +72,16 @@ let options = {
     request(getRules, function(error, response, body) {
       if (error) throw new Error(error);
       let ruleData = JSON.parse(body);
+      let regex = /(?<=\-\s)(.*)/gm;
       let clientArray = [];
+      let app1Array = [];
+      let app2Array = [];
+      let app3Array = [];
+
       for(let i = 0; i < ruleData.length; i++) {
-        console.log(ruleData[i].name);
-        clientArray.push(ruleData[i].name)
-        // let ruleName = ruleData[0].name;
-        // console.log('rule context', ruleName);
+        let string = ruleData[i].name;
+        let ruleClientIds = string.match(regex);
+        clientArray.push(ruleClientIds.join());
       }
       console.log('clientArray', clientArray)
     });
