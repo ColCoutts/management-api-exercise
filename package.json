@@ -1,0 +1,25 @@
+{
+  "name": "management-api-exercise",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ColCoutts/management-api-exercise.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ColCoutts/management-api-exercise/issues"
+  },
+  "homepage": "https://github.com/ColCoutts/management-api-exercise#readme",
+  "dependencies": {
+    "express-jwt": "^5.3.1",
+    "express-jwt-authz": "^2.3.1",
+    "jwks-rsa": "^1.6.0"
+  }
+}
