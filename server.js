@@ -120,15 +120,13 @@ let options = {
             console.log('rulesCLientId', rulesClientId[1]);
             if(clientIds === rulesClientId[1]) {
               console.log('GETTING THERE', clientIds, rulesClientId);
-              filteredObj.set(clientIds, rulesClientId);
+              filteredObj.set(clientIds, rulesClientId[0]);
             } console.log('nope');
           }
         }
         // console.log('newRuleObj', newRuleObj);
         // console.log('the CLIENT OBJ', newClientObj);
         console.log('filtered oBJ', filteredObj);
-
-        
       });
 
     });
