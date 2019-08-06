@@ -82,3 +82,17 @@ let options = {
             } console.log('no match found');
           }
         }
+
+             // for(let clientIds of newClientObj.values()) {
+        //   // console.log('clientIds for map', clientIds);
+        //   for(let i = 0; i < ruleIdArray.length; i++) {
+        //     // console.log('rulesCLientId', rulesClientId[1]);
+        //     if(clientIds === ruleIdArray[i]) {
+        //       // console.log('GETTING THERE', clientIds, rulesClientId);
+        //       // filteredObj.set(clientIds, ruleData[i].name);
+        //     } console.log('No matching Ids');
+        //   }
+        // }
+ 
+        // console.log('filtered oBJ', filteredObj);
+        // return filteredObj;
