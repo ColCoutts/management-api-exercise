@@ -69,30 +69,66 @@ let options = {
       });
       
 
-    request(getRules, function(error, response, body) {
-      if (error) throw new Error(error);
-      let ruleData = JSON.parse(body);
-      let regex = /(?<=\-\s)(.*)/gm;
-      let clientArray = [];
-      let app1Array = [];
-      let app2Array = [];
-      let app3Array = [];
+    // request(getRules, function(error, response, body) {
+    //   if (error) throw new Error(error);
+    //   let ruleData = JSON.parse(body);
+    //   let regex = /(?<=\-\s)(.*)/gm;
+    //   let clientArray = new Map();
 
-      for(let i = 0; i < ruleData.length; i++) {
-        let string = ruleData[i].name;
-        let ruleClientIds = string.match(regex);
-        clientArray.push(ruleClientIds.join());
+    //   for(let i = 0; i < ruleData.length; i++) {
+    //     let string = ruleData[i].name;
+    //     let ruleClientIds = string.match(regex);
+    //     // clientArray.push(ruleClientIds.join());
+    //     clientArray.set(ruleData[i].name, ruleClientIds.join());
+    //   }
+    //   console.log('rulesObj', clientArray)
+    // });
+
+    request(getClients, function(error, response, body) {
+      if (error) throw new Error(error);
+      clientData = JSON.parse(body);
+      let newClientObj = new Map();
+      let newRuleObj = new Map();
+
+      // let clientArray = [];
+      for(let i = 0; i < clientData.length; i++) {
+        newClientObj.set(clientData[i].name, clientData[i].client_id);
+        // clientArray.push(clientData[i].client_id);
       }
-      console.log('clientArray', clientArray)
+      console.log('newClientObj', newClientObj);
+
+      request(getRules, function(error, response, body) {
+        if (error) throw new Error(error);
+        let ruleData = JSON.parse(body);
+        let regex = /(?<=\-\s)(.*)/gm;
+        // let ruleArray = [];
+        // console.log('newclientobjtest', newClientObj);
+        for(let i = 0; i < ruleData.length; i++) {
+          let string = ruleData[i].name;
+          let ruleClientIds = string.match(regex);
+          ruleClientIds.join();
+          // ruleArray.push(ruleClientIds[i]);
+          
+          // newRuleObj.push(ruleClientIds.join());
+          newRuleObj.set(ruleData[i].name, ruleClientIds.join());
+        }
+
+        for(let clientIds of newClientObj.values()) {
+          console.log('clientIds for map', clientIds);
+          for(let rulesClientId of newRuleObj.values()) {
+            console.log(rulesClientId);
+            if(clientIds === rulesClientId) {
+              console.log('GETTING THERE', clientIds, rulesClientId);
+            } console.log('nope');
+          }
+        }
+
+        console.log('newRuleObj', newRuleObj);
+        
+      });
+
     });
 
-    // request(getClients, function(error, context, body) {
-    //   if (error) throw new Error(error);
-    //   clientData = JSON.parse(body);
-    //   console.log('client data', clientData);
-    //   parsedContext = context.toJSON();
-    //   console.log('context', parsedContext);
-    // });
       
 
 
