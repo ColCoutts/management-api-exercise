@@ -119,11 +119,13 @@ let options = {
             console.log(rulesClientId);
             if(clientIds === rulesClientId) {
               console.log('GETTING THERE', clientIds, rulesClientId);
+              newClientObj.set(clientIds, newRuleObj.keys(rulesClientId));
             } console.log('nope');
           }
         }
-
         console.log('newRuleObj', newRuleObj);
+        console.log('the CLIENT OBJ', newClientObj);
+
         
       });
 
