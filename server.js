@@ -89,6 +89,7 @@ let options = {
       clientData = JSON.parse(body);
       let newClientObj = new Map();
       let newRuleObj = new Map();
+      let filteredObj = new Map();
 
       // let clientArray = [];
       for(let i = 0; i < clientData.length; i++) {
@@ -115,16 +116,17 @@ let options = {
 
         for(let clientIds of newClientObj.values()) {
           console.log('clientIds for map', clientIds);
-          for(let rulesClientId of newRuleObj.values()) {
-            console.log(rulesClientId);
-            if(clientIds === rulesClientId) {
+          for(let rulesClientId of newRuleObj) {
+            console.log('rulesCLientId', rulesClientId[1]);
+            if(clientIds === rulesClientId[1]) {
               console.log('GETTING THERE', clientIds, rulesClientId);
-              newClientObj.set(clientIds, newRuleObj.keys(rulesClientId));
+              filteredObj.set(clientIds, rulesClientId);
             } console.log('nope');
           }
         }
-        console.log('newRuleObj', newRuleObj);
-        console.log('the CLIENT OBJ', newClientObj);
+        // console.log('newRuleObj', newRuleObj);
+        // console.log('the CLIENT OBJ', newClientObj);
+        console.log('filtered oBJ', filteredObj);
 
         
       });
