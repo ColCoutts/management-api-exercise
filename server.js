@@ -68,40 +68,87 @@ let options = {
       });
 
     request(getClients, function(error, response, body) {
+
       if (error) throw new Error(error);
+
       clientData = JSON.parse(body);
-      let newClientObj = new Map();
-      let newRuleObj = new Map();
-      let filteredObj = new Map();
+      // let newClientObj = new Map();
+      // let newRuleObj = new Map();
+      let ruleIdArray = [];
+      let clientIdArray = [];
+      // let filteredObj = new Map();
+      let clientObj = {};
+      let clientIdObj = {};
+      let ruleObj = {};
+      let filteredObj = {};
+      let clientName = '';
+      let clientId = '';
 
       for(let i = 0; i < clientData.length; i++) {
-        newClientObj.set(clientData[i].name, clientData[i].client_id);
+        clientName = clientData[i].name;
+        clientId = clientData[i].client_id;
+        // newClientObj.set(clientData[i].name, clientData[i].client_id);
+
+        clientObj[clientName] = new Array();
+        console.log('client obj', clientObj);
+        clientIdObj[clientId] = new Array();
+        console.log('client id', clientIdObj);
+
+        clientIdArray.push(clientId);
       }
-      // console.log('newClientObj', newClientObj);
+
+      console.log('clientIdArray', clientIdArray);
+
       request(getRules, function(error, response, body) {
         if (error) throw new Error(error);
         let ruleData = JSON.parse(body);
         let regex = /(?<=\-\s)(.*)/gm;
         for(let i = 0; i < ruleData.length; i++) {
           let string = ruleData[i].name;
+          console.log('rule Data', ruleData[i].name);
           let ruleClientIds = string.match(regex);
-          ruleClientIds.join();
-          
-          newRuleObj.set(ruleData[i].name, ruleClientIds.join());
+          ruleIdArray.push(ruleClientIds.join());
+          // newRuleObj.set(ruleData[i].name, ruleClientIds.join());
         }
 
-        for(let clientIds of newClientObj.values()) {
-          // console.log('clientIds for map', clientIds);
-          for(let rulesClientId of newRuleObj) {
-            // console.log('rulesCLientId', rulesClientId[1]);
-            if(clientIds === rulesClientId[1]) {
-              // console.log('GETTING THERE', clientIds, rulesClientId);
-              filteredObj.set(clientIds, rulesClientId[0]);
-            } console.log('No matching Ids');
+        console.log('rule id array', ruleIdArray);
+
+        let ruleOneArray = [];
+        let ruleTwoArray = [];
+        let ruleThreeArray = [];
+        for(let i = 0; i < ruleIdArray.length; i++) {
+          console.log('ruledataname', ruleData[i].name);
+          if(ruleIdArray[i] === 'uEtn1qd7KjrlPRSZYtWBFKTFiCq4lEQg') {
+            ruleOneArray.push(ruleData[i].name);
+            clientIdObj['uEtn1qd7KjrlPRSZYtWBFKTFiCq4lEQg'] = ruleOneArray;
+          }
+          if(ruleIdArray[i] === 'BHGm4WAmOnK6O4vCo8LNXw44Rc5vx1P9') {
+            ruleTwoArray.push(ruleData[i].name);
+            Rulecount++;
+            clientIdObj['BHGm4WAmOnK6O4vCo8LNXw44Rc5vx1P9'] = ruleTwoArray;
+          }
+          if(ruleIdArray[i] === 'yDXO49kYmFRFF11usVKJfIhcqELJgVZZ') {
+            ruleThreeArray.push(ruleData[i].name);
+            clientIdObj['yDXO49kYmFRFF11usVKJfIhcqELJgVZZ'] = ruleThreeArray;
           }
         }
-        console.log('filtered oBJ', filteredObj);
-        return filteredObj;
+          console.log('clientIdObj', clientIdObj);
+          console.log('rulecount', ruleTwoArray);
+
+
+        // for(let clientIds of newClientObj.values()) {
+        //   // console.log('clientIds for map', clientIds);
+        //   for(let i = 0; i < ruleIdArray.length; i++) {
+        //     // console.log('rulesCLientId', rulesClientId[1]);
+        //     if(clientIds === ruleIdArray[i]) {
+        //       // console.log('GETTING THERE', clientIds, rulesClientId);
+        //       // filteredObj.set(clientIds, ruleData[i].name);
+        //     } console.log('No matching Ids');
+        //   }
+        // }
+ 
+        // console.log('filtered oBJ', filteredObj);
+        // return filteredObj;
       });
     });
 

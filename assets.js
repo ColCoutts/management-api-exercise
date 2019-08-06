@@ -72,3 +72,13 @@ let options = {
     //   }
     //   console.log('rulesObj', clientArray)
     // });
+
+
+       for(let clientIds of newClientObj.values()) {
+          for(let i = 0; i < ruleIdArray.length; i++) {
+            console.log('rule id in for loop',ruleIdArray[i]);
+            if(clientIds === ruleIdArray[i]) {
+              fitleredObj.set(clientIds, ruleIdArray[i]);
+            } console.log('no match found');
+          }
+        }
