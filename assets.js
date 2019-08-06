@@ -57,3 +57,18 @@ let options = {
     let ruleName = ruleData[0].name;
     console.log('rule context', ruleName);
   });
+
+   // request(getRules, function(error, response, body) {
+    //   if (error) throw new Error(error);
+    //   let ruleData = JSON.parse(body);
+    //   let regex = /(?<=\-\s)(.*)/gm;
+    //   let clientArray = new Map();
+
+    //   for(let i = 0; i < ruleData.length; i++) {
+    //     let string = ruleData[i].name;
+    //     let ruleClientIds = string.match(regex);
+    //     // clientArray.push(ruleClientIds.join());
+    //     clientArray.set(ruleData[i].name, ruleClientIds.join());
+    //   }
+    //   console.log('rulesObj', clientArray)
+    // });
