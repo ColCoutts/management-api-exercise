@@ -12,11 +12,11 @@ To achieve this result, the user will need to both update their current rules as
 
 This will be very familiar territory, I'm creating a M2M Application called 'API Explorer Application' which will be the context we will check with our custom Whitelist rule to enable the rendering of the filtered information.
 
-![GitHub Logo](/images/APIExplore1.png)
+![rules section](/images/APIExplore1.png)
 
 We will need the ClientId, Domain, and Client Secret of this App handy for the next steps.
 
-![GitHub Logo](/images/APIExplore1.png)
+![rule page](/images/APIExplore2.png)
 
 
 
