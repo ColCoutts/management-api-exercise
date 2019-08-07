@@ -5,7 +5,7 @@ The steps outlined below were created with the goal of having an application, wh
 
 ### Documentation
 
-To achieve this result, the user will need to both update their current rules as well as create a Whitelist rule for the specific app that we will modify to suit the needs of this scenario.
+To achieve this result, the user will need to both update their current rules as well as create a Whitelist rule for the specific app which we'll modify to suit the needs of this scenario.
 
 ### Create an Application
 
@@ -13,14 +13,14 @@ This will be familiar territory, I'm creating a M2M Application called 'API Expl
 
 ![rules section](/images/APIExplore1.png)
 
-We will need the ClientId, Domain, and Client Secret of this App handy for the next steps.
+The ClientId, Domain, and Client Secret of this App should be kept handy for the next steps.
 
 ![rule page](/images/APIExplore2.png)
 
 
 ### Updating Pre-Existing Rules
 
-We will use an example pre-configured rule: 'Allow Access during weekdays for a specific App' which can be found once clicking on the 'Create Rule' button within the Rules section. Here I've added two important lines to the code, the ```const request = require('request');``` and the ```context.clientMetadata = context.clientMetadata || {};``` which we will use to make requests to the Management API and instantiate a clientMetadata object that we will populate with rule information.
+We will use a pre-configured rule: 'Allow Access during weekdays for a specific App' as an example which can be found once clicking on the 'Create Rule' button within the Rules section. Here I've added two important lines to the code, the ```const request = require('request');``` and the ```context.clientMetadata = context.clientMetadata || {};``` which we will use to make requests to the Management API and instantiate a clientMetadata object that we will populate with rule information.
 
 ```
 function (user, context, callback) {
@@ -138,7 +138,7 @@ To test this we will check that the body of the request contains an updated 'cli
 
 ### Creating Custom Whitelist Rule
 
-Like in the previous step we will just start with a generic Whitelist Rule that we can specify the permitted user as well as check which client is trying to access this rule. I start by adding 'request' as well as a check for the ```context.clientName``` as well as supply a test user to be authorized. This will handle the basic requirement of checking user validation before continuing on.
+Like in the previous step we will just start with a generic Whitelist Rule that we can specify the permitted user as well as check which client is trying to access this rule. I start by adding 'request' as well as a check for the ```context.clientName``` and supply a test user to be authorized. This will handle the basic requirement of checking user validation before continuing on.
 
 ```
   const request = require('request');
@@ -162,7 +162,7 @@ Like in the previous step we will just start with a generic Whitelist Rule that 
    }
 
 ```
-We will now add the logic which will be a similar pattern to the previous rule, in that we will be first making a POST request to receive an Access_Token which will allow us to make our call to the ```api/v2/clients``` endpoint. By doing this we'll receive all Applications registered to the current tenant, which will now also contain our updated rules field in the clientMetadata, due to our ability to access the context object. 
+We will now add the logic which will be a similar pattern to the previous rule, in that we will be first making a POST request to receive an Access_Token which will allow us to make our call to the ```api/v2/clients``` endpoint. By doing this we'll receive all Applications registered to the current tenant, which will now also contain our updated rules field in the clientMetadata, due to our ability to access the context object.
 
 ```
      let options = {
@@ -209,4 +209,6 @@ The returned ```mappedObj``` is an object that contains all of the tenant apps w
 
 ![filtered result](/images/FilteredApps.png)
 
-This repository has both of these example configurations as .js files that you're free to use and play with to fit your exact needs.
+This repository has both of these example configurations as .js files that you're free to use and play with to fit your exact needs. If experiencing difficulty interacting with the Management API, be sure to check that necessary scopes have been enabled for your App. Futher information interacting with the Management API and it's endpoints can be found here.
+
+[Auth0 Management API](https://auth0.com/docs/api/management/v2)
