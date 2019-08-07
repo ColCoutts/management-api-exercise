@@ -205,7 +205,8 @@ We will now add the logic which will be a similar pattern to the rules, in taht 
     });
 
 ```
-The returned ```mappedObj``` is an object that contains all of the tenant apps with fields for the rules which apply to them. To test this we will run our new WhiteList rule and check the mappedObj. This can be done quickly by using the 'Try This Rule' button near the bottom of the rule code. 
+The returned ```mappedObj``` is an object that contains all of the tenant apps with fields for the rules which apply to them. To test this we will run our new WhiteList rule and check the mappedObj. This can be done quickly by using the 'Try This Rule' button near the bottom of the rule code.
 
 ![filtered result](/images/FilteredApps.png)
 
+This repository has both of these example configurations as .js files that you're free to use and play with to fit your exact needs.
