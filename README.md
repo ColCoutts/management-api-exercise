@@ -136,5 +136,5 @@ To test this we will check that the body of the request contains an updated 'cli
 
 ![rule body](/images/ruleUpdate.png)
 
-###Creating Custom Whitelist Rule
+### Creating Custom Whitelist Rule
 
