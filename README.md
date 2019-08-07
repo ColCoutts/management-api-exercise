@@ -162,47 +162,73 @@ Like in the previous step we will just start with a generic Whitelist Rule that 
    }
 
 ```
-We will now add the logic which will be a similar pattern to the previous rule, in that we will be first making a POST request to receive an Access_Token which will allow us to make our call to the ```api/v2/clients``` endpoint. By doing this we'll receive all Applications registered to the current tenant, which will now also contain our updated rules field in the clientMetadata, due to our ability to access the context object.
+We will now add the logic which will be a similar pattern to the previous rule, in that we will be first making a POST request to receive an Access_Token which will allow us to make our call to the ```api/v2/clients``` endpoint. By doing this we'll receive all Applications registered to the current tenant, which will now also contain our updated rules field in the clientMetadata, due to our ability to access the context object. Here is the entire Whitelist rule once configured.
 
 ```
-     let options = {
-        method: 'POST',
-        url: 'https://management-exercise.auth0.com/oauth/token',
-        headers: {'content-type': 'application/json'},
-        form: {
-            grant_type: 'client_credentials',
-            client_id: 'uEtn1qd7KjrlPRSZYtWBFKTFiCq4lEQg',
-            client_secret: '7CvxeFMx_P_P3kTB1kKz2rL76nUr8Jz0ls1txvDNuDPfxo3hBVzg8UrLLPVyxN5_',
-            audience: 'https://management-exercise.auth0.com/api/v2/'
-        }
-      };
-        
+  function (user, context, callback) {
+  const request = require('request');
+  
+  if(context.clientName !== 'API Explorer Application'){
+    return callback(null, user, context);
+  }
+  // Access should only be granted to verified users.
+  if (!user.email) {
+    return callback(new UnauthorizedError('Access denied.'));
+  }
+
+  const whitelist = [ 'user1@example.com' ]; //authorized users
+  const userHasAccess = whitelist.some(
+    function (email) {
+      return email === user.email;
+    });
+
+  if (!userHasAccess) {
+    return callback(new UnauthorizedError('Access denied.'));
+  }
+  
+  //start of making API calls to Management API
+  
+  let options = {
+    method: 'POST',
+    url: 'https://management-exercise.auth0.com/oauth/token',
+    headers: {'content-type': 'application/json'},
+    form: {
+        grant_type: 'client_credentials',
+        client_id: 'uEtn1qd7KjrlPRSZYtWBFKTFiCq4lEQg',
+        client_secret: '7CvxeFMx_P_P3kTB1kKz2rL76nUr8Jz0ls1txvDNuDPfxo3hBVzg8UrLLPVyxN5_',
+        audience: 'https://management-exercise.auth0.com/api/v2/'
+      }
+    };
+
     let mappedObj = new Map();
     
     request(options, function (error, response, body) {
       if (error) throw new Error(error);
       let parsedData = JSON.parse(body);
-      console.log('PARSED JSON', parsedData.access_token);
-      
-       let getClients = {
+    
+      let getClients = {
       method: 'GET',
       url: 'https://management-exercise.auth0.com/api/v2/clients',
-      audience: 'https://[domain-of-app]/api/v2/',
+      audience: 'https://management-exercise.auth0.com/api/v2/',
       headers: {
         'content-type': 'application/json',
         authorization: `Bearer ${parsedData.access_token}`
       }
     };
       
-       request(getClients, function(error, response, body) {
-      if (error) throw new Error(error);
-      let clientData = JSON.parse(body);
-      for(let i = 0; i < clientData.length; i++) {
-      mappedObj.set(clientData[i].name, (clientData[i].client_metadata ? clientData[i].client_metadata : {}));
-      }
-      console.log(mappedObj);
-      return mappedObj;
+      request(getClients, function(error, response, body) {
+        if (error) throw new Error(error);
+        let clientData = JSON.parse(body);
+        for(let i = 0; i < clientData.length; i++) {
+        mappedObj.set(clientData[i].name, (clientData[i].client_metadata ? clientData[i].client_metadata : {}));
+        }
+        console.log(mappedObj);
+        return mappedObj;
     });
+  });
+  
+  callback(null, user, context);
+}
 
 ```
 The returned ```mappedObj``` is an object that contains all of the tenant apps with fields for the rules which apply to them. To test this we will run our new WhiteList rule and check the mappedObj. This can be done quickly by using the 'Try This Rule' button near the bottom of the rule code.
