@@ -1,3 +1,4 @@
+//function named for eslint
 function ConfiguredRule (user, context, callback) {
   const request = require('request');
       context.clientMetadata = context.clientMetadata || {};

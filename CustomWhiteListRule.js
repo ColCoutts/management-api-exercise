@@ -1,5 +1,4 @@
-//CUSTOM WHITE LIST RULE
-
+//function named for eslint
 function CustomWhitelistRule (user, context, callback) {
   const request = require('request');
   
