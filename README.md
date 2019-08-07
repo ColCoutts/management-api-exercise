@@ -51,7 +51,7 @@ We will update the field with the name of our recently created App  ```if (conte
         grant_type: 'client_credentials',
         client_id: `${context.clientID}`,
         client_secret: [client-secret-of-app],
-        audience: 'https://management-exercise.auth0.com/api/v2/' //this will be the domain of your app//
+        audience: 'https://[domain-of-app]/api/v2/'
       }
      };
 ```
@@ -65,8 +65,8 @@ Next we will make an HTTP PATCH request to the Management API to update our clie
         let patchClients = {
           method: 'PATCH',
           url: 'https://[your-tenant].auth0.com/api/v2/clients/[clientId]',
-          audience: 'https://management-exercise.auth0.com/api/v2/',
-          body: {client_metadata: { "rule2": "Allow Access during weekdays for a specific App" } },
+          audience: 'https://[domain-of-app].com/api/v2/',
+          body: {client_metadata: { "rule2": "Allow Access during weekdays for a specific App" } }, //example rule info
           json: true,
           headers: {'content-type': 'application/json', authorization: `Bearer ${parsedData.access_token}`}
         };
@@ -104,7 +104,7 @@ function (user, context, callback) {
             grant_type: 'client_credentials',
             client_id: `${context.clientID}`,
             client_secret: '7CvxeFMx_P_P3kTB1kKz2rL76nUr8Jz0ls1txvDNuDPfxo3hBVzg8UrLLPVyxN5_',
-            audience: 'https://management-exercise.auth0.com/api/v2/'
+            audience: 'https://[domain-of-app]/api/v2/'
           }
         };
         
@@ -115,8 +115,8 @@ function (user, context, callback) {
         let patchClients = {
           method: 'PATCH',
           url: 'https://[your-tenant].auth0.com/api/v2/clients/[clientId]',
-          audience: 'https://[your-tenant].auth0.com/api/v2/', // this will be the domain of your app
-          body: {client_metadata: { "rule2": "Allow Access during weekdays for a specific App" } },
+          audience: 'https://[domain-of-app]/api/v2/', 
+          body: {client_metadata: { "rule2": "Allow Access during weekdays for a specific App" } }, //rule information here
           json: true,
           headers: {'content-type': 'application/json', authorization: `Bearer ${parsedData.access_token}`}
         };
@@ -187,7 +187,7 @@ We will now add the logic which will be a similar pattern to the previous rule, 
        let getClients = {
       method: 'GET',
       url: 'https://management-exercise.auth0.com/api/v2/clients',
-      audience: 'https://management-exercise.auth0.com/api/v2/',
+      audience: 'https://[domain-of-app]/api/v2/',
       headers: {
         'content-type': 'application/json',
         authorization: `Bearer ${parsedData.access_token}`
