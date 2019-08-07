@@ -132,4 +132,6 @@ function (user, context, callback) {
 }
 
 ```
-To test this result we will check that the body of the request contains an updated 'client_metadata' field with the appropriate rules.
+To test this we will check that the body of the request contains an updated 'client_metadata' field with the appropriate rules. The returned body should look something like this:
+
+![rule body](/images/ruleUpdate.png)
