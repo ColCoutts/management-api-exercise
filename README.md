@@ -162,6 +162,10 @@ Like in the previous step we will just start with a generic Whitelist Rule that 
    }
 
 ```
+We will now add the logic which will be a similar pattern to the rules, in taht we will be first making a POST request to receive an Access_Token which will allow us to make our call to the ```api/v2/clients``` endpoint. By doing this we'll receive all Applications registered to the current tenant, which will now also contain our updated rules field in the clientMetadata.
+
+
+```
      let options = {
         method: 'POST',
         url: 'https://management-exercise.auth0.com/oauth/token',
@@ -202,3 +206,7 @@ Like in the previous step we will just start with a generic Whitelist Rule that 
     });
 
 ```
+The returned ```mappedObj``` is an object that contains all of the tenant apps with fields for the rules which apply to them. To test this we will run our new WhiteList rule and check the mappedObj. This can be done quickly by using the 'Try This Rule' button near the bottom of the rule code. 
+
+
+
