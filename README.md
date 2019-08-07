@@ -5,11 +5,11 @@ The steps outlined below were created with the goal of having an application, wh
 
 ### Documentation
 
-To achieve this result, the user will need to both update their current rules as well as create a Whitelist rule for the specific app that we will modify to suit the needs of this scenario.\
+To achieve this result, the user will need to both update their current rules as well as create a Whitelist rule for the specific app that we will modify to suit the needs of this scenario.
 
 ### Create an Application
 
-This will be very familiar territory, I'm creating a M2M Application called 'API Explorer Application' which will be the context we will check with our custom Whitelist rule to enable the rendering of the filtered information.
+This will be familiar territory, I'm creating a M2M Application called 'API Explorer Application' which will be the context we will check with our custom Whitelist rule to enable the rendering of the filtered information.
 
 ![rules section](/images/APIExplore1.png)
 
