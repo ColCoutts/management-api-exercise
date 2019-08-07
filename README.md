@@ -162,7 +162,7 @@ Like in the previous step we will just start with a generic Whitelist Rule that 
    }
 
 ```
-We will now add the logic which will be a similar pattern to the rules, in taht we will be first making a POST request to receive an Access_Token which will allow us to make our call to the ```api/v2/clients``` endpoint. By doing this we'll receive all Applications registered to the current tenant, which will now also contain our updated rules field in the clientMetadata.
+We will now add the logic which will be a similar pattern to the previous rule, in that we will be first making a POST request to receive an Access_Token which will allow us to make our call to the ```api/v2/clients``` endpoint. By doing this we'll receive all Applications registered to the current tenant, which will now also contain our updated rules field in the clientMetadata, due to our ability to access the context object. 
 
 ```
      let options = {
